@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
             margin:  const EdgeInsets.all(30),
             padding: const EdgeInsets.all(30),
             width: MediaQuery.of(context).size.width,
-            height: 150,
+            height: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: const DecorationImage(
