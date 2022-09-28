@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'pages/homepage.dart';
+import 'package:get/get.dart';
+import 'package:movie_app/route/route_helper.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    debugPrint("-----------App Started-------------");
+    return GetMaterialApp(
       title: 'Movie App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
-      home: const HomePage(),
+      initialRoute: RouteHelper.getInitial(),
+      getPages:RouteHelper.route,
     );
   }
 }
