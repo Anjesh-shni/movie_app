@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:movie_app/reusable_widget/big_text.dart';
 import '../constant/dynamic_dimension.dart';
-import 'main_page.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -80,7 +79,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black54,
-     
       body: Column(
         children: [
           const SizedBox(height: 20,),
@@ -92,6 +90,7 @@ class _HomePageState extends State<HomePage> {
                Container(
                 height: 50,
                 width: 350,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
                 margin: const EdgeInsets.only(left: 20,right:10,),
                  child: TextField( 
                   controller: _searchQuery,
@@ -106,48 +105,95 @@ class _HomePageState extends State<HomePage> {
                       ),
                       enabledBorder:const OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.white,
+                        color: Colors.blue,
                         width: 1,
                         ),
                       ),
                     border:OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(20.0),
                       borderSide: BorderSide.none,
                     ),
                     hintText: "search here",
                     hintStyle:  TextStyle(color: Colors.grey[700]),
                     prefixIcon:  Icon(Icons.search,color: Colors.grey.shade700,),
-                    suffixIcon: const Icon(Icons.clear,color: Colors.black,)
+                    suffixIcon: GestureDetector(
+                      onTap: (){},
+                      child: const Icon(
+                        Icons.clear,
+                        color: Colors.black,
+                        ),
+                      ),
                   ),
                   style:const TextStyle(color: Colors.white),
                  ),
                ),
-               Container(
-                margin:const EdgeInsets.only(right: 20,),
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey
-                  ),
-                  child: const Icon(Icons.search,color: Colors.black,),
+               GestureDetector(
+                onTap: (){
+
+                },
+                 child: Container(
+                  margin:const EdgeInsets.only(right: 20,),
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey
+                    ),
+                    child: const Icon(Icons.search,color: Colors.black,),
+                 ),
                ),
              ],
            ),
-           
-          // body section where movie list shows
-          SizedBox(height: Dimen.font20),
-           Expanded(
-              child:ListView.builder(
+            Container(
+            margin:  const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(30),
+            width: MediaQuery.of(context).size.width,
+            height: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: const DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage("https://images.unsplash.com/photo-1664154026818-b49c159c91d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60"),),
+              color: Colors.grey,
+            ),
+            child:const Center(child: Text("Try premium"),),
+           ),
+
+           Container(
+            padding:const EdgeInsets.only(left: 23,bottom: 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: BigText(text: "Popular searches",
+              color: Colors.white,
+              size: 18,),
+            ),
+           ),
+           // body section where movie list shows
+           const SizedBox(height:5),
+            Expanded(
+              child:GridView.builder(
+                gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,childAspectRatio: 1.3,
+               ),
                 itemCount: _filterData.length,
                 itemBuilder:(context,index){
-                    return Padding(
-                      padding: const EdgeInsets.only(left:30.0),
-                      child: ListTile(
-                        title: Text(_filterData[index].toString()),
-                      ),
-                    );
-                  })
+                    return Container(
+                      margin:  const EdgeInsets.only(left:20,right: 20,bottom: 20),
+                       padding: const EdgeInsets.all(10),
+                       decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(10),
+                       color: Colors.white,
+                       image:const DecorationImage(
+                       image: NetworkImage("https://images.unsplash.com/photo-1664073412845-f44940c3c2c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60"),
+                    fit: BoxFit.cover
+                  ),                   
+                 ),
+                 child:  Align(
+                  alignment: Alignment.bottomCenter,
+                 child: Text(_filterData[index].toString()),
+               ),
+              );
+             }),
             // child: SingleChildScrollView(
             //   child: MainPage(),
             // ),
