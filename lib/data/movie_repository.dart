@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:movie_app/constant/api_contant_url.dart';
+import 'package:movie_app/constant/api_constant_url.dart';
 import 'package:movie_app/data/api_client.dart';
 
 class MovieRepository extends GetxService{

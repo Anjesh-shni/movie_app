@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_app/constant/api_constant_url.dart';
 import 'package:movie_app/reusable_widget/big_text.dart';
+import 'package:movie_app/reusable_widget/small_text.dart';
 
 import '../controller/movie_controller.dart';
 
@@ -184,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                   gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,childAspectRatio: 1.3,
                  ),
-                  itemCount: _filterData.length,
+                  itemCount:_filterData.length,
                   itemBuilder:(context,index){
                       return Container(
                         margin:  const EdgeInsets.only(left:20,right: 20,bottom: 20),
@@ -193,14 +195,15 @@ class _HomePageState extends State<HomePage> {
                          borderRadius: BorderRadius.circular(10),
                          color: Colors.white,
                          image:const DecorationImage(
-                         image: NetworkImage("https://images.unsplash.com/photo-1664073412845-f44940c3c2c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60"),
+                         image: AssetImage("assets/images/logo.jpg"),
                       fit: BoxFit.cover
                     ),                   
                    ),
-                   child:  Align(
-                    alignment: Alignment.bottomCenter,
-                   child: Text(_filterData[index].toString()),
-                 ),
+                   child:  SmallTxt(
+                    text:_filterData[index].toString(),
+                   color:Colors.white,
+                   size: 16,
+                   ),
                 );
                }),
               // child: SingleChildScrollView(
