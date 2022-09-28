@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:movie_app/constant/api_contant_url.dart';
 import 'package:movie_app/data/api_client.dart';
 
 class MovieRepository extends GetxService{
@@ -7,6 +8,6 @@ class MovieRepository extends GetxService{
   MovieRepository({required this.apiClient});
 
   Future<Response> getMovieList()async{
-   return await apiClient.getData("end point url");
+   return await apiClient.getData(AppConstant.POPULAR_MOVIE_LIST);
   }
 }

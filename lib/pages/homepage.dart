@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:movie_app/reusable_widget/big_text.dart';
-import '../constant/dynamic_dimension.dart';
+
+import '../controller/movie_controller.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -164,39 +166,49 @@ class _HomePageState extends State<HomePage> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: BigText(text: "Popular searches",
-              color: Colors.white,
+              color: Colors.black,
               size: 18,),
             ),
            ),
            // body section where movie list shows
            const SizedBox(height:5),
-            Expanded(
-              child:GridView.builder(
-                gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,childAspectRatio: 1.3,
-               ),
-                itemCount: _filterData.length,
-                itemBuilder:(context,index){
-                    return Container(
-                      margin:  const EdgeInsets.only(left:20,right: 20,bottom: 20),
-                       padding: const EdgeInsets.all(10),
-                       decoration: BoxDecoration(
-                       borderRadius: BorderRadius.circular(10),
-                       color: Colors.white,
-                       image:const DecorationImage(
-                       image: NetworkImage("https://images.unsplash.com/photo-1664073412845-f44940c3c2c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60"),
-                    fit: BoxFit.cover
-                  ),                   
+            GetBuilder<MovieController>(
+              builder: (movieController){
+                return movieController.isloaded
+                ?const Center(child: CircularProgressIndicator(
+                  color: Colors.green,
+                  ),
+                  )
+                :Expanded(
+                child:GridView.builder(
+                  gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,childAspectRatio: 1.3,
                  ),
-                 child:  Align(
-                  alignment: Alignment.bottomCenter,
-                 child: Text(_filterData[index].toString()),
-               ),
-              );
-             }),
-            // child: SingleChildScrollView(
-            //   child: MainPage(),
-            // ),
+                  itemCount: _filterData.length,
+                  itemBuilder:(context,index){
+                      return Container(
+                        margin:  const EdgeInsets.only(left:20,right: 20,bottom: 20),
+                         padding: const EdgeInsets.all(10),
+                         decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(10),
+                         color: Colors.white,
+                         image:const DecorationImage(
+                         image: NetworkImage("https://images.unsplash.com/photo-1664073412845-f44940c3c2c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60"),
+                      fit: BoxFit.cover
+                    ),                   
+                   ),
+                   child:  Align(
+                    alignment: Alignment.bottomCenter,
+                   child: Text(_filterData[index].toString()),
+                 ),
+                );
+               }),
+              // child: SingleChildScrollView(
+              //   child: MainPage(),
+              //),
+               );
+              },
+            
           ),
         ],
       ),
